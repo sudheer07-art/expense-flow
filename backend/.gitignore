@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual Environment
+venv/
+.venv/
+
+# Environment files
+.env
+.env.docker
+
+# Database
+*.db
+
+# Logs
+logs/
+*.log
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# Alembic cache
+alembic/versions/__pycache__/
+
+# Node
+node_modules/
