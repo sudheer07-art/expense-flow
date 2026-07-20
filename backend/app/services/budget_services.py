@@ -300,5 +300,5 @@ class BudgetService:
         )
 
         return {
-            "message": "Budget deleted successfully."
+            "message": "Budget deleted successfully"
         }
