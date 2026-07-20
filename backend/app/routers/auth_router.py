@@ -46,31 +46,46 @@ def register(
 
 # Normal frontend login
 
+# @router.post(
+#     "/login",
+#     response_model=Token
+# )
+# def login(
+#     user: UserLogin = None,
+#     form_data: OAuth2PasswordRequestForm = Depends(),
+#     db: Session = Depends(get_db)
+# ):
+
+#     if user:
+#         email = user.email
+#         password = user.password
+
+#     else:
+#         email = form_data.username
+#         password = form_data.password
+
+
+#     return UserService.login(
+#         db=db,
+#         email=email,
+#         password=password
+#     )
+# Normal frontend login
+
 @router.post(
     "/login",
     response_model=Token
 )
 def login(
-    user: UserLogin = None,
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    user: UserLogin,
     db: Session = Depends(get_db)
 ):
 
-    if user:
-        email = user.email
-        password = user.password
-
-    else:
-        email = form_data.username
-        password = form_data.password
-
-
     return UserService.login(
         db=db,
-        email=email,
-        password=password
+        email=user.email,
+        password=user.password
     )
-
 
 
 # Swagger login
