@@ -38,10 +38,10 @@ app = FastAPI(
 )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://your-vercel-url.vercel.app"
-    ],
+   allow_origins=[
+    "http://localhost:5173",
+    "https://expense-flow-d0kfkvtm7-axonix-copilot.vercel.app"
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
