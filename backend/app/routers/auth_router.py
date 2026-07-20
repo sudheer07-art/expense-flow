@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -72,21 +72,45 @@ def register(
 #     )
 # Normal frontend login
 
+# Login (JSON + Form compatibility)
+
 @router.post(
     "/login",
     response_model=Token
 )
-def login(
-    user: UserLogin,
+async def login(
+    request: Request,
     db: Session = Depends(get_db)
 ):
 
-    return UserService.login(
-        db=db,
-        email=user.email,
-        password=user.password
+    content_type = request.headers.get(
+        "content-type",
+        ""
     )
 
+
+    if "application/json" in content_type:
+
+        data = await request.json()
+
+        email = data.get("email")
+        password = data.get("password")
+
+
+    else:
+
+        form = await request.form()
+
+        email = form.get("username")
+        password = form.get("password")
+
+
+
+    return UserService.login(
+        db=db,
+        email=email,
+        password=password
+    )
 
 # Swagger login
 
