@@ -137,7 +137,7 @@ class UserService:
     def update_profile(
     db: Session,
     user_id: int,
-    user_data
+    user_data: UserUpdate
 ):
 
         user = (
@@ -155,8 +155,6 @@ class UserService:
             detail="User not found"
         )
 
-
-    # Check email already used by another user
 
         existing_user = (
         db.query(User)
@@ -183,51 +181,101 @@ class UserService:
         db,
         user
     )
-    @staticmethod
-    def change_password(
-    db: Session,
-    user_id: int,
-    current_password: str,
-    new_password: str,
-):
+#     @staticmethod
+#     def update_profile(
+#     db: Session,
+#     user_id: int,
+#     user_data
+# ):
 
-        user = (
-        db.query(User)
-        .filter(
-            User.id == user_id
-        )
-        .first()
-    )
-
-
-        if not user:
-            raise HTTPException(
-            status_code=404,
-            detail="User not found"
-        )
+#         user = (
+#         db.query(User)
+#         .filter(
+#             User.id == user_id
+#         )
+#         .first()
+#     )
 
 
-    # Verify old password
-
-        if not verify_password(
-        current_password,
-        user.password
-    ):
-
-            raise HTTPException(
-            status_code=400,
-            detail="Current password is incorrect"
-        )
+#         if not user:
+#             raise HTTPException(
+#             status_code=404,
+#             detail="User not found"
+#         )
 
 
-    # Update password
+#     # Check email already used by another user
 
-        user.password = hash_password(
-        new_password
-    )
+#         existing_user = (
+#         db.query(User)
+#         .filter(
+#             User.email == user_data.email,
+#             User.id != user_id
+#         )
+#         .first()
+#     )
 
 
-        return UserRepository.update_password(
-        db=db,
-        user=user
-    )
+#         if existing_user:
+#             raise HTTPException(
+#             status_code=400,
+#             detail="Email already in use"
+#         )
+
+
+#         user.name = user_data.name
+#         user.email = user_data.email
+
+
+#         return UserRepository.update_user(
+#         db,
+#         user
+#     )
+# #     @staticmethod
+# #     def change_password(
+# #     db: Session,
+# #     user_id: int,
+# #     current_password: str,
+# #     new_password: str,
+# # ):
+
+# #         user = (
+# #         db.query(User)
+# #         .filter(
+# #             User.id == user_id
+# #         )
+# #         .first()
+# #     )
+
+
+# #         if not user:
+# #             raise HTTPException(
+# #             status_code=404,
+# #             detail="User not found"
+# #         )
+
+
+# #     # Verify old password
+
+# #         if not verify_password(
+# #         current_password,
+# #         user.password
+# #     ):
+
+# #             raise HTTPException(
+# #             status_code=400,
+# #             detail="Current password is incorrect"
+# #         )
+
+
+# #     # Update password
+
+# #         user.password = hash_password(
+# #         new_password
+# #     )
+
+
+# #         return UserRepository.update_password(
+# #         db=db,
+# #         user=user
+# #     )

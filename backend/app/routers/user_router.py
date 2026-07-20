@@ -113,13 +113,13 @@ def login_for_swagger(
         email=form_data.username,
         password=form_data.password,
     )
-@staticmethod
-def update_password(
-    db: Session,
-    user: User
-):
+# @staticmethod
+# def update_password(
+#     db: Session,
+#     user: User
+# ):
 
-    db.commit()
-    db.refresh(user)
+#     db.commit()
+#     db.refresh(user)
 
-    return user
+#     return user
