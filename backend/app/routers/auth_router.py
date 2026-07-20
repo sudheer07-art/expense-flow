@@ -51,14 +51,24 @@ def register(
     response_model=Token
 )
 def login(
-    user: UserLogin,
+    user: UserLogin = None,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
 
+    if user:
+        email = user.email
+        password = user.password
+
+    else:
+        email = form_data.username
+        password = form_data.password
+
+
     return UserService.login(
         db=db,
-        email=user.email,
-        password=user.password
+        email=email,
+        password=password
     )
 
 

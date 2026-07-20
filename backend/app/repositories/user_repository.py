@@ -22,7 +22,7 @@ class UserRepository:
     @staticmethod
     def update_user(
     db: Session,
-    user
+    user: User
 ):
 
         db.commit()
@@ -32,7 +32,7 @@ class UserRepository:
     @staticmethod
     def update_password(
     db: Session,
-    user
+    user: User
 ):
 
         db.commit()
