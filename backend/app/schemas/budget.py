@@ -1,22 +1,36 @@
-from pydantic import BaseModel
+
+from pydantic import BaseModel, Field, ConfigDict
 
 
-class BudgetCreate(BaseModel):
-    amount: float
-    month: int
-    year: int
+class BudgetBase(BaseModel):
+    amount: float = Field(..., gt=0)
+    month: int = Field(..., ge=1, le=12)
+    year: int = Field(..., ge=2024)
+
+
+class BudgetCreate(BudgetBase):
+    pass
 
 
 class BudgetUpdate(BaseModel):
-    amount: float
+    amount: float = Field(..., gt=0)
 
 
-class BudgetResponse(BaseModel):
+class BudgetResponse(BudgetBase):
     id: int
-    amount: float
-    month: int
-    year: int
     user_id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(
+        from_attributes=True
+    )
+
+
+class CurrentBudgetResponse(BaseModel):
+    budget_id: int | None
+    amount: float
+    spent: float
+    remaining: float
+    used_percentage: float
+    status: str
+    month: int
+    year: int

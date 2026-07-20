@@ -31,3 +31,8 @@ class User(Base):
     back_populates="owner",
     cascade="all, delete-orphan"
 )
+    budgets = relationship(
+    "Budget",
+    back_populates="user",
+    cascade="all, delete-orphan",
+)

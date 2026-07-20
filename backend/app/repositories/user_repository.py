@@ -19,3 +19,23 @@ class UserRepository:
         db.commit()
         db.refresh(user)
         return user
+    @staticmethod
+    def update_user(
+    db: Session,
+    user: User
+):
+
+        db.commit()
+        db.refresh(user)
+
+        return user
+    @staticmethod
+    def update_password(
+    db: Session,
+    user: User
+):
+
+        db.commit()
+        db.refresh(user)
+
+        return user

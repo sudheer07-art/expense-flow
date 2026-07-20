@@ -7,6 +7,7 @@ class UserCreate(BaseModel):
     password: str
 
 
+
 class UserResponse(BaseModel):
     id: int
     name: str
@@ -16,11 +17,27 @@ class UserResponse(BaseModel):
         from_attributes = True
 
 
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
 
+
+class UserUpdate(BaseModel):
+    name: str
+    email: EmailStr
+
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
+class UserUpdate(BaseModel):
+    name: str
+    email: EmailStr
+class ChangePasswordRequest(BaseModel):
+
+    current_password: str
+
+    new_password: str
