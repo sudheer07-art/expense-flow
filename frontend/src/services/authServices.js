@@ -23,6 +23,15 @@ export const loginUser = async (data) => {
     return response.data;
 };
 
+    // localStorage.setItem(
+    //     "token",
+    //     response.data.access_token
+    // );
+
+
+    // return response.data;
+
+
 
 
 // Register

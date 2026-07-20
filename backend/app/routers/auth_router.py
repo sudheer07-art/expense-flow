@@ -200,10 +200,12 @@
 #     return {
 #         "message": "Password updated successfully"
 #     }
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-
+from typing import Optional
+from fastapi import Body
+from fastapi import HTTPException
 from app.database.session import get_db
 
 from app.auth.jwt_handler import get_current_user
@@ -254,15 +256,49 @@ def register(
     "/login",
     response_model=Token
 )
-def login(
-    user: UserLogin,
+async def login(
+    request: Request,
     db: Session = Depends(get_db)
 ):
 
+    content_type = request.headers.get(
+        "content-type",
+        ""
+    )
+
+
+    email = None
+    password = None
+
+
+    if "application/json" in content_type:
+
+        data = await request.json()
+
+        email = data.get("email")
+        password = data.get("password")
+
+
+    elif "application/x-www-form-urlencoded" in content_type:
+
+        form = await request.form()
+
+        email = form.get("username")
+        password = form.get("password")
+
+
+    if not email or not password:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Email and password required"
+        )
+
+
     return UserService.login(
         db=db,
-        email=user.email,
-        password=user.password
+        email=email,
+        password=password
     )
 
 
