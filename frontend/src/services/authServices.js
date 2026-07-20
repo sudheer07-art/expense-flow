@@ -13,7 +13,7 @@ export const loginUser = async (data) => {
         }
     );
 
-
+ console.log("LOGIN RESPONSE:", response.data);
     localStorage.setItem(
         "token",
         response.data.access_token

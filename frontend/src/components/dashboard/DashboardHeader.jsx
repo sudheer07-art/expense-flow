@@ -151,7 +151,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 
 function DashboardHeader({
   onLoginClick,
@@ -255,17 +255,17 @@ function DashboardHeader({
         >
           {/* Search */}
 
-          <button className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-[#181C24] transition hover:bg-[#212633]">
+          {/* <button className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-[#181C24] transition hover:bg-[#212633]">
             <Search size={18} />
           </button>
 
           {/* Notifications */}
 
-          <button className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-[#181C24] transition hover:bg-[#212633]">
+          {/* <button className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-[#181C24] transition hover:bg-[#212633]">
             <Bell size={18} />
 
             <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500" />
-          </button>
+          </button> */} 
 
           {/* Avatar */}
 

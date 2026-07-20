@@ -309,7 +309,7 @@ import {
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import ChangePassword from "../../components/settings/ChangePassword";
 import EditProfileModal from "../../components/settings/EditProfileModal";

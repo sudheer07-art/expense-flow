@@ -8,7 +8,7 @@ import {
 
 import { AnimatePresence } from "framer-motion";
 
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "./context/useAuth";
 
 import AppLayout from "./components/layout/AppLayout";
 // import ProtectedRoute from "./components/auth/ProtectedRoute";

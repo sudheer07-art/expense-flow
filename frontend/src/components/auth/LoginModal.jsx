@@ -754,9 +754,7 @@ getCurrentUser
 } from "../../services/authServices";
 
 
-import {
-useAuth
-} from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 
 
 import {
@@ -798,18 +796,19 @@ setLoading(true);
 setError("");
 
 
-
-const tokenData=
+console.log("EMAIL:", email);
+console.log("PASSWORD:", password);
+const data=
 await loginUser({
 email,
 password
 });
 
-
+console.log("TOKEN RESPONSE:", data);
 
 localStorage.setItem(
 "token",
-token.access_token
+data.access_token
 );
 
 
@@ -820,7 +819,7 @@ await getCurrentUser();
 
 
 login(
-token.access_token,
+data.access_token,
 user
 );
 
@@ -841,11 +840,13 @@ navigate("/dashboard");
 
 catch(err){
 
+console.error("LOGIN ERROR:", err);
+
 setError(
 err.response?.data?.detail ||
+err.message ||
 "Invalid credentials"
 );
-
 
 }
 

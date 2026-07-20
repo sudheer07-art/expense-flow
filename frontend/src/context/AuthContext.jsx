@@ -1,233 +1,326 @@
+// // import {
+// //   createContext,
+// //   useContext,
+// //   useEffect,
+// //   useState,
+// // } from "react";
+
+// // import {
+// //   getCurrentUser,
+// //   logoutUser,
+// // } from "../services/authServices";
+
+
+// // const AuthContext = createContext();
+
+
+
+// // export function AuthProvider({ children }) {
+
+
+// //   const [user, setUser] = useState(null);
+
+// //   const [loading, setLoading] = useState(true);
+
+
+
+// //   // Check existing login when app starts
+
+// //   useEffect(() => {
+
+// //     checkAuth();
+
+// //   }, []);
+
+
+
+
+// //   const checkAuth = async () => {
+
+// //     const token =
+// //       localStorage.getItem("token");
+
+
+// //     if (!token) {
+
+// //       setLoading(false);
+
+// //       return;
+
+// //     }
+
+
+
+// //     try {
+
+// //       const currentUser =
+// //         await getCurrentUser();
+
+
+// //       setUser(currentUser);
+
+
+// //     } catch (error) {
+
+
+// //       console.error(
+// //         "Authentication failed",
+// //         error
+// //       );
+
+
+// //       logoutUser();
+
+// //       setUser(null);
+
+
+// //     } finally {
+
+// //       setLoading(false);
+
+// //     }
+
+// //   };
+
+
+
+
+
+// //   // Login function
+
+// //   const login = (
+// //     token,
+// //     userData
+// //   ) => {
+
+
+// //     localStorage.setItem(
+// //       "token",
+// //       token
+// //     );
+
+
+// //     setUser(userData);
+
+// //   };
+
+
+
+
+
+// //   // Logout function
+
+// //   const logout = () => {
+
+
+// //     logoutUser();
+
+
+// //     setUser(null);
+
+// //   };
+
+
+
+
+
+// //   return (
+
+// //    <AuthContext.Provider
+// //   value={{
+// //     user,
+// //     setUser,
+// //     login,
+// //     logout,
+// //     loading,
+// //     isAuthenticated: !!user,
+// //   }}
+// // >
+
+// //       {children}
+
+// //     </AuthContext.Provider>
+
+// //   );
+
+// // }
+
+
+
+
+
+// // export function useAuth() {
+
+// //   const context =
+// //     useContext(AuthContext);
+
+
+// //   if (!context) {
+
+// //     throw new Error(
+// //       "useAuth must be used inside AuthProvider"
+// //     );
+
+// //   }
+
+
+// //   return context;
+
+// // }
 // import {
-//   createContext,
-//   useContext,
-//   useEffect,
-//   useState,
-// } from "react";
+// createContext,
+// useContext,
+// useState
+// }
+// from "react";
 
-// import {
-//   getCurrentUser,
-//   logoutUser,
-// } from "../services/authServices";
 
+// const AuthContext=createContext();
 
-// const AuthContext = createContext();
 
 
+// export function AuthProvider({children}){
 
-// export function AuthProvider({ children }) {
 
+// const [user,setUser]=useState(null);
 
-//   const [user, setUser] = useState(null);
 
-//   const [loading, setLoading] = useState(true);
 
+// const login=(token)=>{
 
+// localStorage.setItem(
+// "token",
+// token
+// );
 
-//   // Check existing login when app starts
+// };
 
-//   useEffect(() => {
 
-//     checkAuth();
 
-//   }, []);
+// const logout=()=>{
 
+// localStorage.removeItem(
+// "token"
+// );
 
+// setUser(null);
 
+// };
 
-//   const checkAuth = async () => {
 
-//     const token =
-//       localStorage.getItem("token");
 
+// return (
 
-//     if (!token) {
-
-//       setLoading(false);
-
-//       return;
-
-//     }
-
-
-
-//     try {
-
-//       const currentUser =
-//         await getCurrentUser();
-
-
-//       setUser(currentUser);
-
-
-//     } catch (error) {
-
-
-//       console.error(
-//         "Authentication failed",
-//         error
-//       );
-
-
-//       logoutUser();
-
-//       setUser(null);
-
-
-//     } finally {
-
-//       setLoading(false);
-
-//     }
-
-//   };
-
-
-
-
-
-//   // Login function
-
-//   const login = (
-//     token,
-//     userData
-//   ) => {
-
-
-//     localStorage.setItem(
-//       "token",
-//       token
-//     );
-
-
-//     setUser(userData);
-
-//   };
-
-
-
-
-
-//   // Logout function
-
-//   const logout = () => {
-
-
-//     logoutUser();
-
-
-//     setUser(null);
-
-//   };
-
-
-
-
-
-//   return (
-
-//    <AuthContext.Provider
-//   value={{
-//     user,
-//     setUser,
-//     login,
-//     logout,
-//     loading,
-//     isAuthenticated: !!user,
-//   }}
+// <AuthContext.Provider
+// value={{
+// user,
+// setUser,
+// login,
+// logout
+// }}
 // >
 
-//       {children}
+// {children}
 
-//     </AuthContext.Provider>
+// </AuthContext.Provider>
 
-//   );
-
-// }
-
-
-
-
-
-// export function useAuth() {
-
-//   const context =
-//     useContext(AuthContext);
-
-
-//   if (!context) {
-
-//     throw new Error(
-//       "useAuth must be used inside AuthProvider"
-//     );
-
-//   }
-
-
-//   return context;
+// )
 
 // }
+
+
+
+// export const useAuth=()=>useContext(AuthContext);
 import {
-createContext,
-useContext,
-useState
-}
-from "react";
+    createContext,
+    useEffect,
+    useState
+} from "react";
 
 
-const AuthContext=createContext();
+export const AuthContext = createContext();
 
 
 
 export function AuthProvider({children}){
 
 
-const [user,setUser]=useState(null);
+    const [user,setUser] = useState(null);
+
+    const [loading,setLoading] = useState(true);
 
 
 
-const login=(token)=>{
+    useEffect(()=>{
 
-localStorage.setItem(
-"token",
-token
-);
-
-};
+        const token =
+        localStorage.getItem("token");
 
 
+        if(token){
 
-const logout=()=>{
+            setUser({
+                token
+            });
 
-localStorage.removeItem(
-"token"
-);
-
-setUser(null);
-
-};
+        }
 
 
+        setLoading(false);
 
-return (
 
-<AuthContext.Provider
-value={{
-user,
-setUser,
-login,
-logout
-}}
->
+    },[]);
 
-{children}
 
-</AuthContext.Provider>
 
-)
+    const login = (
+        token,
+        userData
+    )=>{
+
+
+        localStorage.setItem(
+            "token",
+            token
+        );
+
+
+        setUser(userData);
+
+    };
+
+
+
+    const logout=()=>{
+
+
+        localStorage.removeItem(
+            "token"
+        );
+
+
+        setUser(null);
+
+    };
+
+
+
+    return (
+
+        <AuthContext.Provider
+        value={{
+            user,
+            login,
+            logout,
+            loading,
+            isAuthenticated:Boolean(user)
+        }}
+        >
+
+        {children}
+
+        </AuthContext.Provider>
+
+    );
 
 }
-
-
-
-export const useAuth=()=>useContext(AuthContext);
