@@ -57,6 +57,8 @@ class UserService:
         email: str,
         password: str
     ):
+        print("LOGIN EMAIL:", email)
+        print("LOGIN PASSWORD:", password)
         logger.info(f"Login attempt: {email}")
 
         db_user = UserRepository.get_user_by_email(

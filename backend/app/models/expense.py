@@ -10,8 +10,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from app.database.base import Base
-
+from app.database.database import Base
 
 class Expense(Base):
     __tablename__ = "expenses"

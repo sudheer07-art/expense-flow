@@ -3,17 +3,28 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+
 from app.exceptions.handlers import (
     validation_exception_handler,
     http_exception_handler,
     generic_exception_handler,
 )
+
+
 from app.database.database import engine
 from app.database.base import Base
+
+
+# IMPORTANT: Load ALL models first
+
+from app.models import User, Expense, Budget
+
+# Create tables after models are loaded
+Base.metadata.create_all(bind=engine)
+
+
+
 from app.routers.auth_router import router as auth_router
-from app.models.user import User
-from app.models.expense import Expense
-from app.models.budget import Budget
 from app.routers.expense_router import router as expense_router
 from app.routers.dashboard_router import router as dashboard_router
 from app.routers.analytics_router import router as analytics_router
@@ -28,7 +39,8 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*"
+        "http://localhost:5173",
+        "https://your-vercel-url.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
